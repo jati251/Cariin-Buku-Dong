@@ -1,4 +1,4 @@
-import { FETCH_BOOK_DETAIL, FETCH_BOOKS, USER_LOGIN } from "./actionType"
+import { FETCH_BOOK_DETAIL, FETCH_BOOKS, FETCH_WISHLIST, USER_LOGIN } from "./actionType"
 const baseUrl = "http://localhost:3000/";
 
 import Swal from 'sweetalert2'
@@ -6,6 +6,13 @@ import Swal from 'sweetalert2'
 export const fetchBooksSuccess = (payload) => {
     return {
         type: FETCH_BOOKS,
+        payload: payload
+    }
+}
+
+export const fetchWishlistSuccess = (payload) => {
+    return {
+        type: FETCH_WISHLIST,
         payload: payload
     }
 }
@@ -50,7 +57,7 @@ export const findBook = (id) => {
         const token = localStorage.access_token;
         try {
             let response = await fetch(
-                baseUrl + "admin/item/" + id, {
+                baseUrl + "/item/" + id, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -72,8 +79,8 @@ export const registerUser = (payload) => {
     return async (dispatch) => {
         try {
             let response = await fetch(
-                baseUrl + "admin/register", {
-                method: 'post',
+                baseUrl + "/register", {
+                method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                     'access_token': token
@@ -104,7 +111,7 @@ export const registerUser = (payload) => {
 export const loginUser = (payload) => {
     return async (dispatch) => {
         try {
-            let response = await fetch(baseUrl + `admin/login`, {
+            let response = await fetch(baseUrl + `/login`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

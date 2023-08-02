@@ -1,7 +1,8 @@
-import { USER_LOGIN } from "../actions/actionType"
+import { FETCH_WISHLIST, USER_LOGIN } from "../actions/actionType"
 
 const initialState = {
-    user:{}
+    user:{},
+    wishlist:[]
 }
 function userReducer(state = initialState, action) {
     switch (action.type) {
@@ -9,6 +10,11 @@ function userReducer(state = initialState, action) {
             return {
                 ...state,
                 user: action.payload
+            }
+        case FETCH_WISHLIST:
+            return {
+                ...state,
+                wishlist: action.payload
             }
         default:
             return state
