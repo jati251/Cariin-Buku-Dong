@@ -4,10 +4,10 @@ import "./index.css";
 import router from "./router.jsx";
 import { RouterProvider } from "react-router-dom";
 import { Provider } from "react-redux";
-// import store from "./store/index";
+import store from "./store/index";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  // <Provider store={store}>
+  <Provider store={store}>
     <RouterProvider router={router} />
-  // </Provider>
+  </Provider>
 );
