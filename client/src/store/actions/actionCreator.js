@@ -31,16 +31,15 @@ export const userLoginSuccess = (payload) => {
     }
 }
 
-export const fetchBooksSearch = () => {
+export const fetchBooksSearch = (keyword) => {
     const token = localStorage.access_token;
     return async (dispatch) => {
         try {
             let response = await fetch(
-                baseUrl + "admin/item", {
+                baseUrl + "books?keyword="+keyword, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
-                    'access_token': token
                 }
             }
             );
@@ -111,7 +110,7 @@ export const registerUser = (payload) => {
 export const loginUser = (payload) => {
     return async (dispatch) => {
         try {
-            let response = await fetch(baseUrl + `/login`, {
+            let response = await fetch(baseUrl + `login`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

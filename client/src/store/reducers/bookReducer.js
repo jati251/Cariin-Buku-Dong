@@ -9,12 +9,12 @@ function bookReducer(state = initialState, action) {
         case FETCH_BOOKS:
             return {
                 ...state,
-                menus: action.payload
+                books: action.payload
             }
         case FETCH_BOOK_DETAIL:
             return {
                 ...state,
-                menu: action.payload
+                book: action.payload
             }
         default:
             return state

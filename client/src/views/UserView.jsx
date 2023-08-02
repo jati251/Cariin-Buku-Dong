@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-// import { loginUser } from "../store/actions/actionCreator";
+import { loginUser } from "../store/actions/actionCreator";
 
-export default function UserView(){
-     // local state
+export default function UserView() {
+  // local state
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -13,11 +13,7 @@ export default function UserView(){
   // requirement
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const token = localStorage.access_token;
   // global state
-  const { user } = useSelector((state) => {
-    return state.user;
-  });
 
   // function
   function handleForm(event) {
@@ -30,16 +26,27 @@ export default function UserView(){
   async function handleLogin(e) {
     setIsLoading(true);
     e.preventDefault();
-    dispatch(loginUser(formData));
-    setIsLoading(false);
+    dispatch(loginUser(formData))
+      .then((result) => {
+        setIsLoading(false);
+        navigate("/");
+      })
+      .catch((err) => {});
+  }
+
+   function handleRegister(e) {
+    setIsLoading(true);
+    e.preventDefault();
+    navigate('/register')
+  }
+
+  function handleBack(e) {
+    setIsLoading(true);
+    e.preventDefault();
+    navigate('/')
   }
 
   // lifecycle
-  useEffect(() => {
-    if (token) {
-      navigate("/menu");
-    }
-  }, [user]);
 
   if (isLoading) {
     return (
@@ -56,18 +63,16 @@ export default function UserView(){
   return (
     <>
       <section className="w-screen h-screen bg-blue-300">
-        <div className=" mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
+        <div className=" mx-auto max-w-screen-xl px-4 py-12 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-lg bg-">
             <form
               action=""
               className="bg-white mb-0 mt-20 space-y-4 rounded-lg p-4 shadow-lg sm:p-6 lg:p-8"
             >
               <h1 className="text-center text-2xl font-bold sm:text-3xl">
-                McDonald's Admin Login
+                Cariin Buku Dong
               </h1>
-              <p className="text-center text-lg font-medium">
-                Sign in to your account
-              </p>
+              <p className="text-center text-lg font-medium">Login Sekarang</p>
 
               <div>
                 <label htmlFor="email" className="sr-only">
@@ -143,9 +148,22 @@ export default function UserView(){
 
               <button
                 onClick={handleLogin}
-                className="block w-full rounded-lg bg-red-700 px-5 py-3 text-sm font-medium text-white"
+                className="block w-full rounded-lg bg-blue-700 px-5 py-3 text-sm font-medium text-white"
               >
-                Sign in
+                Masuk
+              </button>
+              <button
+                onClick={handleBack}
+                className="block w-full rounded-lg bg-blue-700 px-5 py-3 text-sm font-medium text-white"
+              >
+                kembali
+              </button>
+              <p className="text-center text-sm font-medium">Belum punya akun? daftar sekarang</p>
+              <button
+                onClick={handleRegister}
+                className="block w-full rounded-lg bg-blue-700 px-5 py-3 text-sm font-medium text-white"
+              >
+                Daftar
               </button>
             </form>
           </div>
