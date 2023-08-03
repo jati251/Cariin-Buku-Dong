@@ -1,151 +1,218 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import {
-  registerUser,
-} from "../store/actions/actionCreator";
-import { useNavigate, Link } from "react-router-dom";
+import { registerUser } from "../store/actions/actionCreator";
 
 export default function RegisterView() {
   // local state
-  const [form, setForm] = useState({
+  const [formData, setFormData] = useState({
     email: "",
     password: "",
-    phoneNumber: "",
-    address: "",
   });
-
-  // global state
-  const [isLoading, setIsLoading] = useState(true);
-
+  const [isLoading, setIsLoading] = useState(false);
+  const [passwordFlag, setPasswordFlag] = useState(false);
   // requirement
-  const navigate = useNavigate();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  // global state
 
   // function
   function handleForm(event) {
-    setForm({
-      ...form,
+    setFormData({
+      ...formData,
       [event.target.name]: event.target.value,
     });
   }
 
   function handleRegister(e) {
+    setIsLoading(true);
     e.preventDefault();
-    dispatch(registerUser(form));
-    console.log(form);
-    navigate("/menu");
+    dispatch(registerUser(formData))
+      .then((result) => {
+        setIsLoading(false);
+        navigate("/login");
+      })
+      .catch((err) => {});
   }
+
+  function handleBack(e) {
+    setIsLoading(true);
+    e.preventDefault();
+    navigate("/");
+  }
+
+  function handlePassword() {
+    if (passwordFlag) {
+      setPasswordFlag(false);
+    } else {
+      setPasswordFlag(true);
+    }
+  }
+
   // lifecycle
-  useEffect(() => {
-   setIsLoading(false)
-  }, []);
+
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <img
+          className=" scale-100 w-[60vh]"
+          src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif?20151024034921"
+          alt=""
+        />
+      </div>
+    );
+  }
 
   return (
     <>
-      <div className="flex-grow  ml-48 my-20 px-2 ">
-        <div className="mb-4 md:flex md:justify-between m-5 relative top-0">
-          <div className="mb-4 md:mr-2 md:mb-0">
-            <h2 className="font-bold text-xl">
-              McDonald's Register Admin Form
-            </h2>
-          </div>
-        </div>
-        {!isLoading ? (
-          <form action="" className="space-y-4 m-4">
-            <div>
-              <label
-                className="block mb-2 text-sm font-bold text-gray-700"
-                htmlFor="email"
-              >
-                Email
-              </label>
-              <input
-                onChange={handleForm}
-                value={form.email}
-                className="w-full rounded-lg border border-gray-400 p-3 text-sm"
-                placeholder="Insert email here"
-                type="email"
-                name="email"
-              />
-            </div>
+      <section className="w-screen h-screen bg-blue-300">
+        <div className=" mx-auto max-w-screen-xl px-4 py-12 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-lg bg-">
+            <form
+              action=""
+              className="bg-white mb-0 mt-20 space-y-4 rounded-lg p-4 shadow-lg sm:p-6 lg:p-8"
+            >
+              <h1 className="text-center text-2xl font-bold sm:text-3xl">
+                Cariin Buku Dong
+              </h1>
+              <p className="text-center text-lg font-medium">Daftar disini</p>
 
-            <div>
-              <label
-                className="block mb-2 text-sm font-bold text-gray-700"
-                htmlFor="password"
-              >
-                Password
-              </label>
-              <input
-                onChange={handleForm}
-                value={form.password}
-                className="w-full rounded-lg border border-gray-400 p-3 text-sm"
-                placeholder="Insert password here"
-                type="password"
-                name="password"
-              />
-            </div>
+              <div>
+                <label htmlFor="email" className="sr-only">
+                  Email
+                </label>
 
-            <div>
-              <label
-                className="block mb-2 text-sm font-bold text-gray-700"
-                htmlFor="phoneNumber"
-              >
-                Telephone Number
-              </label>
-              <input
-                onChange={handleForm}
-                value={form.phoneNumber}
-                className="w-full rounded-lg border border-gray-400 p-3 text-sm"
-                placeholder="Insert phone number here"
-                type="text"
-                name="phoneNumber"
-              />
-            </div>
+                <div className="relative">
+                  <input
+                    onChange={handleForm}
+                    value={formData.email}
+                    type="email"
+                    className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
+                    placeholder="Enter email"
+                    name="email"
+                  />
 
-            <div>
-              <label
-                className="block mb-2 text-sm font-bold text-gray-700"
-                htmlFor="address"
-              >
-                Address
-              </label>
+                  <span className="absolute inset-y-0 end-0 grid place-content-center px-4">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-4 w-4 text-gray-400"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeWidth="2"
+                        d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"
+                      />
+                    </svg>
+                  </span>
+                </div>
+              </div>
 
-              <textarea
-                onChange={handleForm}
-                value={form.address}
-                className="border border-gray-400 w-full rounded-lg p-3 text-sm"
-                placeholder="Insert address here"
-                rows="8"
-                name="address"
-              ></textarea>
-            </div>
+              {!passwordFlag ? (
+                <div>
+                  <label htmlFor="password" className="sr-only">
+                    Password
+                  </label>
 
-            <div className="mt-4">
+                  <div className="relative">
+                    <input
+                      onChange={handleForm}
+                      value={formData.password}
+                      type="password"
+                      className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
+                      placeholder="Enter password"
+                      name="password"
+                    />
+
+                    <div
+                      onClick={handlePassword}
+                      className="absolute inset-y-0 end-0 grid place-content-center px-4 cursor-pointer"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-4 w-4 text-gray-400"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                        />
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                        />
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <div>
+                  <label htmlFor="password" className="sr-only">
+                    Password
+                  </label>
+
+                  <div className="relative">
+                    <input
+                      onChange={handleForm}
+                      value={formData.password}
+                      type="text"
+                      className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
+                      placeholder="Enter password"
+                      name="password"
+                    />
+
+                    <span
+                      onClick={handlePassword}
+                      className="absolute inset-y-0 end-0 grid place-content-center px-4 cursor-pointer"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-4 w-4 text-gray-400"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                        />
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                        />
+                      </svg>
+                    </span>
+                  </div>
+                </div>
+              )}
+
               <button
                 onClick={handleRegister}
-                className="inline-block w-full m-1 rounded-lg bg-black px-5 py-3 font-medium text-white sm:w-auto"
+                className="block w-full rounded-l bg-sky-500 px-5 py-3 text-sm font-medium text-white"
               >
-                Submit
+                Daftar
               </button>
-              <Link
-                to="/menu"
-                className="inline-block w-full m-1 rounded-lg bg-red-600 px-5 py-3 font-medium text-white sm:w-auto"
+              <button
+                onClick={handleBack}
+                className="block w-full rounded-lg bg-red-500 px-5 py-3 text-sm font-medium text-white"
               >
-                Cancel
-              </Link>
-            </div>
-          </form>
-        ) : (
-          <img
-            className="w-full pl-60 scale-50"
-            src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif?20151024034921"
-            alt=""
-          />
-        )}
-      </div>
+                kembali
+              </button>
+            </form>
+          </div>
+        </div>
+      </section>
     </>
   );
 }
-
-

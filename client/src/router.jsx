@@ -23,6 +23,13 @@ const router = createBrowserRouter([
       {
         path: "/wishlist",
         element: <WishlistView />,
+        loader: () => {
+          let token = localStorage.access_token;
+          if (!token) {
+            return redirect("/");
+          }
+          return null;
+        },
       },
     ],
   },
@@ -30,7 +37,7 @@ const router = createBrowserRouter([
     path: "/login",
     element: <UserView />,
     loader: () => {
-      let token = localStorage.userId;
+      let token = localStorage.access_token;
       if (token) {
         return redirect("/");
       }
@@ -41,7 +48,7 @@ const router = createBrowserRouter([
     path: "/register",
     element: <RegisterView />,
     loader: () => {
-      let token = localStorage.userId;
+      let token = localStorage.access_token;
       if (token) {
         return redirect("/");
       }

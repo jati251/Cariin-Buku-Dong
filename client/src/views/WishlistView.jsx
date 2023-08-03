@@ -16,14 +16,13 @@ export default function WishlistView() {
   function handleBack() {
     navigate("/");
   }
-  
+
   useEffect(() => {
     dispatch(getWishlist())
-    .then((result) => {
-        setIsLoading(false)
-    }).catch((err) => {
-        
-    });
+      .then((result) => {
+        setIsLoading(false);
+      })
+      .catch((err) => {});
   }, []);
 
   return (
@@ -39,7 +38,7 @@ export default function WishlistView() {
           Kembali
         </button>
       </div>
-      
+
       {isLoading ? (
         <div className="flex justify-center items-center h-screen pb-[40vh]">
           <img
@@ -50,13 +49,18 @@ export default function WishlistView() {
         </div>
       ) : (
         <div className="container mx-auto p-4">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          {wishlist.length > 0 &&
-            wishlist.map((el, index) => (
-              <WishlistCard key={index} book={el}></WishlistCard>
-            ))}
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            {wishlist.length > 0 &&
+              wishlist.map((el, index) => (
+                <WishlistCard key={index} book={el}></WishlistCard>
+              ))}
+          </div>
         </div>
-      </div>
+      )}
+      {wishlist.length < 1 && (
+        <div className="flex items-center justify-center">
+          <h1>Wistlist kamu masih kosong</h1>
+        </div>
       )}
     </>
   );

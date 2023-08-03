@@ -30,6 +30,10 @@ export default function HomeView() {
       .catch((err) => {});
   }
 
+  function handleLogin(){
+    navigate('/login')
+  }
+
   function handleLogout() {
     localStorage.clear()
     Swal.fire({
@@ -71,14 +75,14 @@ export default function HomeView() {
         <div>
           <div className="items-center flex justify-center my-2">
             <button
-              onClick={handleLogout}
+              onClick={handleLogin}
               className="block rounded-md bg-sky-500 px-8 py-2.5 text-md font-medium text-white transition hover:bg-sky-700 mx-2"
             >
               Login
             </button>
           </div>
           <div className="items-center flex justify-center my-2">
-            <h1>login sekarang untuk menyimpan wishlishmu</h1>
+            <h1>login sekarang untuk menyimpan wishlistmu</h1>
           </div>
         </div>
       )}
