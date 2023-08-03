@@ -1,5 +1,5 @@
-import { FETCH_BOOK_DETAIL, FETCH_BOOKS, FETCH_WISHLIST, USER_LOGIN } from "./actionType"
-const baseUrl = "http://localhost:3000/";
+import { baseUrl,FETCH_BOOK_DETAIL, FETCH_BOOKS, FETCH_WISHLIST, USER_LOGIN } from "./actionType"
+
 
 import Swal from 'sweetalert2'
 
