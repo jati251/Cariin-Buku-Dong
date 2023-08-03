@@ -1,7 +1,6 @@
 import { createBrowserRouter, redirect } from "react-router-dom";
 import App from "./App";
 import HomeView from "./views/HomeView";
-import DetailView from "./views/DetailView";
 import WishlistView from "./views/WishlistView";
 import UserView from "./views/UserView";
 import RegisterView from "./views/RegisterView";
@@ -22,12 +21,15 @@ const router = createBrowserRouter([
         element: <HomeView />,
       },
       {
-        path: "/detail/:id",
-        element: <DetailView />,
-      },
-      {
         path: "/wishlist",
         element: <WishlistView />,
+        loader: () => {
+          let token = localStorage.access_token;
+          if (!token) {
+            return redirect("/");
+          }
+          return null;
+        },
       },
     ],
   },
@@ -35,7 +37,7 @@ const router = createBrowserRouter([
     path: "/login",
     element: <UserView />,
     loader: () => {
-      let token = localStorage.userId;
+      let token = localStorage.access_token;
       if (token) {
         return redirect("/");
       }
@@ -46,7 +48,7 @@ const router = createBrowserRouter([
     path: "/register",
     element: <RegisterView />,
     loader: () => {
-      let token = localStorage.userId;
+      let token = localStorage.access_token;
       if (token) {
         return redirect("/");
       }

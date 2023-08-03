@@ -1,6 +1,4 @@
 import { baseUrl,FETCH_BOOK_DETAIL, FETCH_BOOKS, FETCH_WISHLIST, USER_LOGIN } from "./actionType"
-
-
 import Swal from 'sweetalert2'
 
 export const fetchBooksSuccess = (payload) => {
@@ -36,7 +34,7 @@ export const fetchBooksSearch = (keyword) => {
     return async (dispatch) => {
         try {
             let response = await fetch(
-                baseUrl + "books?keyword="+keyword, {
+                baseUrl + "/books?keyword="+keyword, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -78,7 +76,7 @@ export const createWishlist = (payload) => {
         const token = localStorage.access_token;
         try {
             let response = await fetch(
-                baseUrl + "wishlist/add", {
+                baseUrl + "/wishlist/add", {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -89,6 +87,28 @@ export const createWishlist = (payload) => {
             );
             let result = await response.json();
             // console.log(result.item);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+}
+
+export const getWishlist = () => {
+    return async (dispatch) => {
+        const token = localStorage.access_token;
+        try {
+            let response = await fetch(
+                baseUrl + "/wishlist", {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'access_token': token
+                },
+            }
+            );
+            let result = await response.json();
+            
+            dispatch(fetchWishlistSuccess(result.wishlist))
         } catch (error) {
             console.log(error);
         }
@@ -132,7 +152,7 @@ export const registerUser = (payload) => {
 export const loginUser = (payload) => {
     return async (dispatch) => {
         try {
-            let response = await fetch(baseUrl + `login`, {
+            let response = await fetch(baseUrl + `/login`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

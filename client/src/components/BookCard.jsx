@@ -5,10 +5,10 @@ import { createWishlist } from "../store/actions/actionCreator";
 
 export default function BookCard({ book }) {
   function limitStringWithEllipsis(str) {
-    if (str.length <= 80) {
+    if (str.length <= 70) {
       return str;
     } else {
-      return str.substring(0, 80 - 3) + "...";
+      return str.substring(0, 70 - 3) + "...";
     }
   }
   
@@ -44,9 +44,9 @@ export default function BookCard({ book }) {
   }
 
   return (
-    <div className="bg-blue-100 shadow-md rounded-lg dark:bg-gray-800 dark:border-gray-700 mx-2 overflow-hidden transition duration-100 ease-in-out transform hover:scale-105">
+    <div className="bg-blue-100 shadow-md rounded-lg mx-2 overflow-hidden transition duration-100 ease-in-out transform hover:scale-105">
       <div className="h-[14vh]">
-        <h3 className="text-gray-900 font-semibold text-xl tracking-tight dark:text-white text-center mx-3 mt-5">
+        <h3 className="text-gray-900 font-semibold text-xl tracking-tight text-center mx-3 mt-5">
           {limitStringWithEllipsis(data.name)}
         </h3>
       </div>
@@ -88,7 +88,7 @@ export default function BookCard({ book }) {
         </div>
         <button
           onClick={handleWishlist}
-          className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+          className="text-white bg-blue-500 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
         >
           Tambahkan ke wishlist
         </button>

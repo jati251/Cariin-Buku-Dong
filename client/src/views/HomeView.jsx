@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { fetchBooksSearch } from "../store/actions/actionCreator";
 import BookCard from "../components/BookCard";
+import Swal from "sweetalert2";
 
 export default function HomeView() {
   const [isLoading, setIsLoading] = useState(false);
@@ -11,8 +12,6 @@ export default function HomeView() {
   const { books } = useSelector((state) => {
     return state.books;
   });
-
-  console.log(books);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -31,9 +30,62 @@ export default function HomeView() {
       .catch((err) => {});
   }
 
+  function handleLogin(){
+    navigate('/login')
+  }
+
+  function handleLogout() {
+    localStorage.clear()
+    Swal.fire({
+      icon: 'success',
+      title: 'Berhasil keluar',
+      showConfirmButton: false,
+      timer: 1500
+    })
+    navigate("/login")
+  }
+
+  function handleWishlist() {
+    navigate("/wishlist");
+  }
+  
+  const token = localStorage.access_token;
+
   return (
     <div>
-      <h1 className="text-center my-5 mt-10 text-2xl font-bold">Cariin Buku Dong</h1>
+      <h1 className="text-center my-5 mt-10 text-2xl font-bold">
+        Cariin Buku Dong
+      </h1>
+      {token ? (
+        <div className="items-center flex justify-center my-2">
+          <button
+            onClick={handleWishlist}
+            className="block rounded-md bg-cyan-500 px-8 py-2.5 text-lg font-medium text-white transition hover:bg-cyan-800 mx-2"
+          >
+            Wishlist
+          </button>
+          <button
+            onClick={handleLogout}
+            className="block rounded-md bg-red-400 px-8 py-2.5 text-lg font-medium text-white transition hover:bg-red-700 mx-2"
+          >
+            Logout
+          </button>
+        </div>
+      ) : (
+        <div>
+          <div className="items-center flex justify-center my-2">
+            <button
+              onClick={handleLogin}
+              className="block rounded-md bg-sky-500 px-8 py-2.5 text-md font-medium text-white transition hover:bg-sky-700 mx-2"
+            >
+              Login
+            </button>
+          </div>
+          <div className="items-center flex justify-center my-2">
+            <h1>login sekarang untuk menyimpan wishlistmu</h1>
+          </div>
+        </div>
+      )}
       <div className="items-center flex justify-center">
         <div className="flex gap-4">
           <input
@@ -44,7 +96,7 @@ export default function HomeView() {
           />
           <button
             onClick={handleBookSearch}
-            className="block rounded-md bg-blue-600 px-8 py-2.5 text-lg font-medium text-white transition hover:bg-blue-800"
+            className="block rounded-md bg-blue-500 px-8 py-2.5 text-lg font-medium text-white transition hover:bg-blue-800"
           >
             Cari
           </button>
