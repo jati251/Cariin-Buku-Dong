@@ -4,6 +4,7 @@ import HomeView from "./views/HomeView";
 import DetailView from "./views/DetailView";
 import WishlistView from "./views/WishlistView";
 import UserView from "./views/UserView";
+import RegisterView from "./views/RegisterView";
 
 const router = createBrowserRouter([
   {
@@ -33,13 +34,24 @@ const router = createBrowserRouter([
   {
     path: "/login",
     element: <UserView />,
-    // loader: () => {
-    //   let token = localStorage.userId;
-    //   if (token) {
-    //     return redirect("/menu");
-    //   }
-    //   return null;
-    // },
+    loader: () => {
+      let token = localStorage.userId;
+      if (token) {
+        return redirect("/");
+      }
+      return null;
+    },
+  },
+  {
+    path: "/register",
+    element: <RegisterView />,
+    loader: () => {
+      let token = localStorage.userId;
+      if (token) {
+        return redirect("/");
+      }
+      return null;
+    },
   },
 ]);
 

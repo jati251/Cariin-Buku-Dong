@@ -28,8 +28,8 @@ module.exports = {
       rating: {
         type: Sequelize.INTEGER
       },
-      authorName: {
-        type: Sequelize.STRING
+      authors: {
+        type: Sequelize.ARRAY(Sequelize.STRING)
       },
       createdAt: {
         allowNull: false,

@@ -31,16 +31,15 @@ export const userLoginSuccess = (payload) => {
     }
 }
 
-export const fetchBooksSearch = () => {
+export const fetchBooksSearch = (keyword) => {
     const token = localStorage.access_token;
     return async (dispatch) => {
         try {
             let response = await fetch(
-                baseUrl + "admin/item", {
+                baseUrl + "books?keyword="+keyword, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
-                    'access_token': token
                 }
             }
             );
@@ -68,6 +67,28 @@ export const findBook = (id) => {
             let result = await response.json();
             // console.log(result.item);
             await dispatch(fetchBookDetailSuccess(result.item));
+        } catch (error) {
+            console.log(error);
+        }
+    }
+}
+
+export const createWishlist = (payload) => {
+    return async (dispatch) => {
+        const token = localStorage.access_token;
+        try {
+            let response = await fetch(
+                baseUrl + "wishlist/add", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'access_token': token
+                },
+                body: JSON.stringify(payload),
+            }
+            );
+            let result = await response.json();
+            // console.log(result.item);
         } catch (error) {
             console.log(error);
         }
@@ -111,7 +132,7 @@ export const registerUser = (payload) => {
 export const loginUser = (payload) => {
     return async (dispatch) => {
         try {
-            let response = await fetch(baseUrl + `/login`, {
+            let response = await fetch(baseUrl + `login`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
