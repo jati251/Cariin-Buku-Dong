@@ -1,7 +1,6 @@
 import { createBrowserRouter, redirect } from "react-router-dom";
 import App from "./App";
 import HomeView from "./views/HomeView";
-import DetailView from "./views/DetailView";
 import WishlistView from "./views/WishlistView";
 import UserView from "./views/UserView";
 import RegisterView from "./views/RegisterView";
@@ -20,10 +19,6 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <HomeView />,
-      },
-      {
-        path: "/detail/:id",
-        element: <DetailView />,
       },
       {
         path: "/wishlist",

@@ -1,7 +1,7 @@
 # Cariin-Buku-Dong
-mini project for travelio recruitment
+Mini project for travelio recruitment
 
-server deploy with docker on GCP instance : https://cariingameaja-server.jatisuryo.com/
-client deploy with firebase : https://cariin-buku.web.app/
-using supabase as postgres database
+- Server deploy with docker on GCP instance : https://cariingameaja-server.jatisuryo.com/
+- Client deploy with Firebase : https://cariin-buku.web.app/
+- Using Supabase for postgres database
 

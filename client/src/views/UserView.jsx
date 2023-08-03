@@ -34,16 +34,16 @@ export default function UserView() {
       .catch((err) => {});
   }
 
-   function handleRegister(e) {
+  function handleRegister(e) {
     setIsLoading(true);
     e.preventDefault();
-    navigate('/register')
+    navigate("/register");
   }
 
   function handleBack(e) {
     setIsLoading(true);
     e.preventDefault();
-    navigate('/')
+    navigate("/");
   }
 
   // lifecycle
@@ -148,20 +148,22 @@ export default function UserView() {
 
               <button
                 onClick={handleLogin}
-                className="block w-full rounded-lg bg-blue-700 px-5 py-3 text-sm font-medium text-white"
+                className="block w-full rounded-lg bg-blue-500 px-5 py-3 text-sm font-medium text-white"
               >
                 Masuk
               </button>
               <button
                 onClick={handleBack}
-                className="block w-full rounded-lg bg-blue-700 px-5 py-3 text-sm font-medium text-white"
+                className="block w-full rounded-lg bg-red-500 px-5 py-3 text-sm font-medium text-white"
               >
                 kembali
               </button>
-              <p className="text-center text-sm font-medium">Belum punya akun? daftar sekarang</p>
+              <p className="text-center text-sm font-medium">
+                Belum punya akun? daftar sekarang
+              </p>
               <button
                 onClick={handleRegister}
-                className="block w-full rounded-lg bg-blue-700 px-5 py-3 text-sm font-medium text-white"
+                className="block w-full rounded-l bg-sky-500 px-5 py-3 text-sm font-medium text-white"
               >
                 Daftar
               </button>
