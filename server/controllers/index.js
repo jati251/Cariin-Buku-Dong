@@ -94,7 +94,7 @@ class Controller {
 
     static async addWishlist(req, res, next) {
         const userId = req.user.id;
-        let { bookId, name, imgUrl, rating, authorName } = req.body;
+        let { bookId, name, imgUrl, rating, authors } = req.body;
         if (!rating) {
             rating = 0
         }
@@ -104,7 +104,7 @@ class Controller {
                 name, 
                 imgUrl, 
                 rating,
-                authorName,
+                authors,
                 userId,
             });
             console.log(newWishList);

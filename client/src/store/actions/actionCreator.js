@@ -73,6 +73,28 @@ export const findBook = (id) => {
     }
 }
 
+export const createWishlist = (payload) => {
+    return async (dispatch) => {
+        const token = localStorage.access_token;
+        try {
+            let response = await fetch(
+                baseUrl + "wishlist/add", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'access_token': token
+                },
+                body: JSON.stringify(payload),
+            }
+            );
+            let result = await response.json();
+            // console.log(result.item);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+}
+
 export const registerUser = (payload) => {
     const token = localStorage.access_token;
     return async (dispatch) => {
