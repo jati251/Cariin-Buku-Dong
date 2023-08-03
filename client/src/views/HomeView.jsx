@@ -39,12 +39,12 @@ export default function HomeView() {
           <input
             onChange={inputHandler}
             type="search"
-            className="w-auto rounded-lg border border-gray-300 text-sm shadow-sm px-4"
+            className="w-auto rounded-lg border border-gray-300 text-lg shadow-sm px-4"
             placeholder="Pencarian buku"
           />
           <button
             onClick={handleBookSearch}
-            className="block rounded-md bg-blue-600 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-[#19958c]"
+            className="block rounded-md bg-blue-600 px-8 py-2.5 text-lg font-medium text-white transition hover:bg-blue-800"
           >
             Cari
           </button>
@@ -59,8 +59,8 @@ export default function HomeView() {
           />
         </div>
       ) : (
-        <div className="container mx-auto px-10 mr-40">
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10 my-10">
+        <div className="container mx-auto p-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {books.length > 0 &&
               books.map((el, index) => (
                 <BookCard key={index} book={el}></BookCard>

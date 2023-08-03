@@ -44,14 +44,13 @@ export default function BookCard({ book }) {
   }
 
   return (
-    <div className="bg-blue-100 shadow-md rounded-lg max-w-sm dark:bg-gray-800 dark:border-gray-700 w-[36vh] overflow-hidden transition duration-100 ease-in-out transform hover:scale-105">
-      <div className="h-[9vh]">
+    <div className="bg-blue-100 shadow-md rounded-lg dark:bg-gray-800 dark:border-gray-700 mx-2 overflow-hidden transition duration-100 ease-in-out transform hover:scale-105">
+      <div className="h-[14vh]">
         <h3 className="text-gray-900 font-semibold text-xl tracking-tight dark:text-white text-center mx-3 mt-5">
           {limitStringWithEllipsis(data.name)}
         </h3>
       </div>
 
-      {/* <h1>Author: {book.volumeInfo.authors||'-'}</h1> */}
       <img
         className="rounded-t-lg p-3 mx-auto h-[35vh]"
         src={data.imgUrl}
@@ -62,7 +61,7 @@ export default function BookCard({ book }) {
         {book.volumeInfo.authors?.length > 0
           ? book.volumeInfo?.authors
               .slice(0, 4)
-              .map((el, index) => <h1 key={index}>{el}</h1>)
+              .map((el, index) => <li key={index}> {el}</li>)
           : "-"}
         {book.volumeInfo.authors?.length > 4 && <h1>& Dkk</h1>}
         <div className="flex items-center mt-2.5 mb-5">
