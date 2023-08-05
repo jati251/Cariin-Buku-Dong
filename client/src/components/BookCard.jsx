@@ -11,6 +11,10 @@ export default function BookCard({ book }) {
       return str.substring(0, 70 - 3) + "...";
     }
   }
+
+  function removeHttps(url) {
+    return url.replace("http:", "");
+  }
   
   const data = {
     bookId: book.id,
@@ -53,7 +57,7 @@ export default function BookCard({ book }) {
 
       <img
         className="rounded-t-lg p-3 mx-auto h-[35vh]"
-        src={data.imgUrl}
+        src={removeHttps(data.imgUrl)}
         alt="product image"
       />
       <div className="px-5 pb-5">
@@ -82,13 +86,13 @@ export default function BookCard({ book }) {
               />
             </svg>
           ))}
-          <span className="bg-blue-300 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ml-3">
+          <span className="bg-blue-300 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded ml-3">
             {data.rating || "-"}
           </span>
         </div>
         <button
           onClick={handleWishlist}
-          className="text-white bg-blue-500 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+          className="text-white bg-blue-500 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center "
         >
           Tambahkan ke wishlist
         </button>
